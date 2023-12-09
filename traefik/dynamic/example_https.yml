@@ -1,0 +1,26 @@
+http:
+  services:
+    ExampleService:
+      # evenly distribute traffic between servers
+      loadBalancer:
+        servers:
+          # url of server to forward traffic to (server is hosting a http server, https would also work here, but isn't needed as it's internal)
+          - url: "http://ip:port/"
+
+  routers:
+    RouterExampleService:
+      entryPoints:
+        # Entrypoints from which the router will be available from
+        - websecure
+      # service to forward traffic to
+      service: ExampleService
+      # rule to select router by (e.g. [sub]domain) more found on https://doc.traefik.io/traefik/routing/routers/#rule
+      rule: "Host(`exampleserviceurl.example.com`)"
+
+      # tls/https config
+      tls:
+        # certy resolver to get certs from
+        certResolver: poduction
+        # domains to get cert for (all domains from rule should be entered here)
+        domains:
+          - main: exampleserviceurl.example.com

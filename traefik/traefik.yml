@@ -1,0 +1,30 @@
+global:
+  sendAnonymousUsage: false
+
+entryPoints:
+  web:
+    address: ":80"
+  
+  websecure:
+    address: ":443"
+
+certificatesResolvers:
+  poduction:
+    acme:
+      email: mail@example.com
+      # path to store the certs in (should survive restarts of the traefik container) (all certs are stored in a single json file)
+      storage: path/to/store/acme.json
+      # service to get the certs from (Example: Let's Encrypt)
+      caServer: "https://acme-v02.api.letsencrypt.org/directory"
+
+      # using a http challenge
+      httpChallenge:
+        entryPoint: web
+
+
+providers:
+  # file provider: file service / router configuration
+  file:
+    directory: /etc/traefik/dynamic
+    # reload config on change
+    watch: true
