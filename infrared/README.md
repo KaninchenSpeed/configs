@@ -1,0 +1,1 @@
+more examples on [https://hub.docker.com/r/haveachin/infrared](https://hub.docker.com/r/haveachin/infrared)
